@@ -3,9 +3,6 @@ import telebot
 # импорт types для работы с кнопками
 from telebot import types
 
-# импорт sqlite для работы с данными и их хранении
-import sqlite3
-
 from functions_for_database import print_free_table, booking_tables
 # импорты для работы с файлом .env
 from dotenv import load_dotenv
@@ -52,7 +49,7 @@ def callback_message(callback):
 
 @bot.message_handler(commands=['booking_table'])  # отдельная функция выбора заведения
 def booking_table(message):
-    markup = types.InlineKeyboardMarkup()
+    markup = types.InlineKeyboardMarkup()  # создаются кнопки макдональдс и кфс
     btn1_restaurant1 = types.InlineKeyboardButton('Макдональдс 🍔', callback_data='Макдональдс')
     btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', callback_data='KFC')
     markup.row(btn1_restaurant1, btn2_restaurant2)
@@ -62,6 +59,10 @@ def booking_table(message):
 
 @bot.message_handler(content_types=['text'])
 def number_booking_table(message):
+    """
+    Функция проверяет, существует ли такой номер стола и запускает функцию booking_table
+    :param message: принимает сообщение (номер стола, который вы хотите забронировать)
+    """
     if message.text in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
         booking_tables(message)
         bot.reply_to(message, f'Стол успешно забронирован')

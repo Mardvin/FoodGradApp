@@ -60,14 +60,14 @@ def print_free_table(restaurant: str, booking_restaurant: str) -> str:
 
 def booking_tables(message) -> None:
     """
-    Функция бронирует указанный номер стола
+    Функция принимает номер стола и меняет в базе данных с значения 1 (Свободно) на 0 (Забранировано)
     """
     conn = sqlite3.connect('all_restaurant_table.sql')
     cur = conn.cursor()
 
     cur.execute(
         f"SELECT * FROM table_booking_McDonald")
-    table_booking = cur.fetchall()
+    table_booking = cur.fetchall()  # значения из базыданых (таблицы) присваиваются переменной
 
     for table in table_booking:
         if int(message.text) == table[0] and table[1] == 'True':
