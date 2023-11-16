@@ -27,7 +27,7 @@ token = get_from_env('TG_BOT_TOKEN')
 bot = telebot.TeleBot(token)
 
 
-@bot.message_handler(commands=['start', 'hello'])  # обрабатывает команды
+@bot.message_handler(commands=['start', 'hello'])  # обрабатывает базовые команды
 def main(message):
     bot.send_message(message.chat.id,
                      f'Привет! {message.from_user.first_name},'
@@ -39,10 +39,12 @@ def main(message):
     bot.send_message(message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup)
 
 
+# функция обрабатывает нажатия на кнопки мак и кфс
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data == 'Макдональдс':
         bot.send_message(callback.message.chat.id, 'Введите номер стола, который хотите забронировать')
+        # Выводит таблицу свободных столов
         bot.send_message(callback.message.chat.id, print_free_table('table_McDonald', 'table_booking_McDonald'))
     elif callback == 'KFC':
         pass  # функция, которая выдает список столов kfc
