@@ -33,16 +33,22 @@ def main(message):
     btn1_restaurant1 = types.InlineKeyboardButton('Макдональдс 🍔', callback_data='Макдональдс')
     btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', callback_data='KFC')
     markup.row(btn1_restaurant1, btn2_restaurant2)
-    bot.send_message(message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup)
+    bot.send_message(
+        message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup
+    )
 
 
 # функция обрабатывает нажатия на кнопки мак и кфс
 @bot.callback_query_handler(func=lambda callback: True)
 def callback_message(callback):
     if callback.data == 'Макдональдс':
-        bot.send_message(callback.message.chat.id, 'Введите номер стола, который хотите забронировать')
+        bot.send_message(callback.message.chat.id,
+                         'Введите номер стола, имя и время, на которое хотите забронировать стол\n'
+                         'Пример: 4 Кирилл 18:30')
         # Выводит таблицу свободных столов
-        bot.send_message(callback.message.chat.id, print_free_table('table_McDonald', 'table_booking_McDonald'))
+        bot.send_message(
+            callback.message.chat.id, print_free_table('table_McDonald', 'table_booking_McDonald')
+        )
     elif callback == 'KFC':
         pass  # функция, которая выдает список столов kfc
 
@@ -63,12 +69,16 @@ def number_booking_table(message):
     Функция проверяет, существует ли такой номер стола и запускает функцию booking_table
     :param message: принимает сообщение (номер стола, который вы хотите забронировать)
     """
-    if message.text in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
-        booking_tables(message)
-        bot.reply_to(message, f'Стол успешно забронирован')
+    try:
+        number_table, name_for_booking, time = message.text.split(' ')
+        if number_table in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
+            booking_tables(number_table, name_for_booking, time)
+            bot.reply_to(message, f'Стол успешно забронирован')
+    except ValueError:
+        bot.reply_to(
+            message, f'Неверный ввод данных, введите сначала:\nНомер стола Имя и Время\nПример: 4 Кирилл 18:30'
+        )
 
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)  # функция делает так, чтобы бот работал постоянно
-
-

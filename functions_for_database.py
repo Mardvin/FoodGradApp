@@ -48,19 +48,22 @@ def print_free_table(restaurant: str, booking_restaurant: str) -> str:
         if free_table[1] == 'True':
             number_free_table.append(free_table[0])
 
-    info = ''
-    for table in tables_McDonald:
-        if table[1] in number_free_table:
-            info += f'Номер стола: {table[1]}, кол-во мест {table[2]}\n'
-    return info
+    if len(number_free_table) != 0:
+        info = ''
+        for table in tables_McDonald:
+            if table[1] in number_free_table:
+                info += f'Номер стола: {table[1]}, кол-во мест {table[2]}\n'
+        return info
+    else:
+        return f"Извините, на ближайшее время все столы забронированы"
 
     cur.close()
     conn.close()
 
 
-def booking_tables(message) -> None:
+def booking_tables(number_table, name_for_table, time) -> None:
     """
-    Функция принимает номер стола и меняет в базе данных с значения 1 (Свободно) на 0 (Забранировано)
+    Функция принимает номер стола и меняет в базе данных с значения True (Свободно) на False (Забранировано)
     """
     conn = sqlite3.connect('all_restaurant_table.sql')
     cur = conn.cursor()
@@ -70,9 +73,9 @@ def booking_tables(message) -> None:
     table_booking = cur.fetchall()  # значения из базыданых (таблицы) присваиваются переменной
 
     for table in table_booking:
-        if int(message.text) == table[0] and table[1] == 'True':
+        if int(number_table) == table[0] and table[1] == 'True':
             cur.execute(
-                f"UPDATE table_booking_McDonald SET booking = False WHERE number_table = {int(message.text)}")
+                f"UPDATE table_booking_McDonald SET booking = 'False', name = '{name_for_table}', time = '{time}' WHERE number_table = {int(number_table)}")
             conn.commit()
     cur.close()
     conn.close()
