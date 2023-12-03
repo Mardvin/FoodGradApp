@@ -1,4 +1,5 @@
 import telebot
+from telebot.types import WebAppInfo
 
 # импорт types для работы с кнопками
 from telebot import types
@@ -31,7 +32,9 @@ def main(message):
                      f' я Ваш виртуальный ассистент по резервированию столов в Ваших любимых заведениях')
     markup = types.InlineKeyboardMarkup()
     btn1_restaurant1 = types.InlineKeyboardButton('Макдональдс 🍔', callback_data='Макдональдс')
-    btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', callback_data='KFC')
+
+
+    btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', web_app=WebAppInfo(url="https://ya.ru/"))
     markup.row(btn1_restaurant1, btn2_restaurant2)
     bot.send_message(
         message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup
