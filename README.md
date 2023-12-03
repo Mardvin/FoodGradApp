@@ -1,2 +1,0 @@
-# FoodGradApp
-telegram bot application
