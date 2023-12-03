@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <style>
+        .reg-form {
+    max-width: 800px;
+    margin: 0 auto;
+    }
+    </style>
+    
+</head>
+<body>
+    <form class="reg-form" method="POST">
+        <h1>Резервирование стола</h1>
+        <div class="mb-3">
+            <label for="name" class="form-label">Введите номер стола и время на которое хотите забронировать</label>
+            <input type="text" id="name" name="name" class="reg-form__input form-control">
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-danger" type="reset" value="Сбросить">
+            <input class="btn btn-success" type="submit" value="Отправить">
+        </div>
+    </form>
+</body>
+</html>
