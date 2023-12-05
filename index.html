@@ -38,19 +38,6 @@
             margin: 0px;
         }
 
-        button {
-            border: 0;
-            border-radius: 5px;
-            margin-top: 50px;
-            height: 60px;
-            width: 200px;
-            font-size: 20px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 500ms ease;
-            color: var(--tg-theme-secondary-bg-color);
-            background: var(--tg-theme-button-text-color);
-        }
 
     </style>
     <link rel="stylesheet" type="text/css" href="stules.css">
@@ -66,12 +53,13 @@
     <form class="reg-form" method="POST" id="form">
         <h1>Резервирование стола</h1>
         <div class="mb-3">
-            <label for="name" class="form-label">Введите номер стола и время на которое хотите забронировать</label>
+            <label for="data" class="form-label">Введите номер стола и время на которое хотите забронировать</label>
             <input type="text" id="data" name="name" class="reg-form__input form-control">
         </div>
         <div class="mb-3">
             <input class="btn btn-danger" type="reset" value="Сбросить">
-            <input id="submit" class="btn btn-success" type="submit" value="Отправить">
+<!--            <input id="submit" class="btn btn-success" type="submit" value="Отправить">-->
+            <button id="submit" type="button" class="btn btn-success">Отправить</button>
         </div>
     </form>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -82,7 +70,7 @@
         tg.expand();
 
         submit.addEventListener("click", () => {
-            let data = document.getElementInId("data").value;
+            let data = document.getElementById("data").value;
 
 
             tg.sendData(data);
