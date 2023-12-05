@@ -30,14 +30,29 @@ def main(message):
     bot.send_message(message.chat.id,
                      f'Привет! {message.from_user.first_name},'
                      f' я Ваш виртуальный ассистент по резервированию столов в Ваших любимых заведениях')
-    markup = types.InlineKeyboardMarkup()
+    markup = types. InlineKeyboardMarkup()
     btn1_restaurant1 = types.InlineKeyboardButton('Макдональдс 🍔', callback_data='Макдональдс')
-
-    btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', web_app=WebAppInfo(url="https://mardvin.github.io/FoodGradApp/"))
-    markup.row(btn1_restaurant1, btn2_restaurant2)
+    markup1 = types.ReplyKeyboardMarkup()
+    btn2_restaurant2 = types.KeyboardButton('Макдональдс web 🍗', web_app=WebAppInfo(url="https://mardvin.github.io/FoodGradApp/"))
+    markup.row(btn1_restaurant1)
+    markup1.row(btn2_restaurant2)
     bot.send_message(
         message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup
     )
+
+# Принимает данные из web
+@bot.message_handler(content_types=['web_app_data'])
+def web_app(message):
+    try:
+        number_table, name_for_booking, time = message.web_app_data.data.split(' ')
+        if number_table in ('1', '2', '3', '4', '5', '6', '7', '8', '9'):
+            booking_tables(number_table, name_for_booking, time)
+            bot.reply_to(message, f'Стол успешно забронирован')
+    except ValueError:
+        bot.reply_to(
+            message, f'Неверный ввод данных, введите сначала:\nНомер стола Имя и Время\nПример: 4 Кирилл 18:30'
+        )
+    bot.send_message(message.chat.id, f'{message.web_app_data.data}')
 
 
 # функция обрабатывает нажатия на кнопки мак и кфс
@@ -51,16 +66,14 @@ def callback_message(callback):
         bot.send_message(
             callback.message.chat.id, print_free_table('table_McDonald', 'table_booking_McDonald')
         )
-    elif callback == 'KFC':
-        pass  # функция, которая выдает список столов kfc
+
 
 
 @bot.message_handler(commands=['booking_table'])  # отдельная функция выбора заведения
 def booking_table(message):
     markup = types.InlineKeyboardMarkup()  # создаются кнопки макдональдс и кфс
     btn1_restaurant1 = types.InlineKeyboardButton('Макдональдс 🍔', callback_data='Макдональдс')
-    btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', callback_data='KFC')
-    markup.row(btn1_restaurant1, btn2_restaurant2)
+    markup.row(btn1_restaurant1)
     bot.send_message(message.chat.id,
                      f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup)
 
