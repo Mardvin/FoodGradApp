@@ -39,6 +39,9 @@ def main(message):
     bot.send_message(
         message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup
     )
+    bot.send_message(
+        message.chat.id, f'--------------------------------------', reply_markup=markup1
+    )
 
 # Принимает данные из web
 @bot.message_handler(content_types=['web_app_data'])
@@ -52,7 +55,7 @@ def web_app(message):
         bot.reply_to(
             message, f'Неверный ввод данных, введите сначала:\nНомер стола Имя и Время\nПример: 4 Кирилл 18:30'
         )
-    bot.send_message(message.chat.id, f'{message.web_app_data.data}')
+
 
 
 # функция обрабатывает нажатия на кнопки мак и кфс
