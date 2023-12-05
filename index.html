@@ -54,12 +54,12 @@
         <h1>Резервирование стола</h1>
         <div class="mb-3">
             <label for="data" class="form-label">Введите номер стола и время на которое хотите забронировать</label>
-            <input type="text" id="data" name="name" class="reg-form__input form-control">
+            <input type="text" id="data" name="data" class="reg-form__input form-control">
         </div>
         <div class="mb-3">
             <input class="btn btn-danger" type="reset" value="Сбросить">
-<!--            <input id="submit" class="btn btn-success" type="submit" value="Отправить">-->
-            <button id="submit" type="button" class="btn btn-success">Забронировать</button>
+<!--            <input id="invite" class="btn btn-success" type="submit" value="Отправить">-->
+            <button id="submit" type="submit" class="btn btn-success">Забронировать</button>
         </div>
     </form>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -69,7 +69,6 @@
 
         submit.addEventListener("click", () => {
             let data = document.getElementById("data").value;
-
 
             tg.sendData(data);
             tg.close();
