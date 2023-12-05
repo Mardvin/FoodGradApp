@@ -30,11 +30,10 @@ def main(message):
     bot.send_message(message.chat.id,
                      f'Привет! {message.from_user.first_name},'
                      f' я Ваш виртуальный ассистент по резервированию столов в Ваших любимых заведениях')
-    markup = types.InlineKeyboardMarkup()
+    markup = types.ReplyKeyboardMarkup()
     btn1_restaurant1 = types.InlineKeyboardButton('Макдональдс 🍔', callback_data='Макдональдс')
 
-
-    btn2_restaurant2 = types.InlineKeyboardButton('KFC 🍗', web_app=WebAppInfo(url="https://mardvin.github.io/FoodGradApp/"))
+    btn2_restaurant2 = types.KeyboardButton('KFC 🍗', web_app=WebAppInfo(url="https://mardvin.github.io/FoodGradApp/"))
     markup.row(btn1_restaurant1, btn2_restaurant2)
     bot.send_message(
         message.chat.id, f'Выберите заведение, в котором хотите забронировать столик', reply_markup=markup
