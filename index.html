@@ -62,11 +62,8 @@
             <button id="submit" type="button" class="btn btn-success">Отправить</button>
         </div>
     </form>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
+    <script src="https://telegram.org/js/telegram-web-app.js">
         let tg = window.Telegram.WebApp;
-        let booking = document.getElementById("booking");
-        let submit = document.getElementInId("submit");
         tg.expand();
 
         submit.addEventListener("click", () => {
