@@ -50,7 +50,7 @@
 <!--        <p>Благодарим вас, что пользуетесь нашим сервисом</p>-->
 <!--        <button id="booking">Зарезервировать стол</button>-->
 <!--    </div>-->
-    <form class="reg-form" method="POST" id="form">
+    <form class="reg-form" id="form">
         <h1>Резервирование стола</h1>
         <div class="mb-3">
             <label for="data" class="form-label">Введите номер стола и время на которое хотите забронировать</label>
@@ -59,10 +59,11 @@
         <div class="mb-3">
             <input class="btn btn-danger" type="reset" value="Сбросить">
 <!--            <input id="submit" class="btn btn-success" type="submit" value="Отправить">-->
-            <button id="submit" type="button" class="btn btn-success">Отправить</button>
+            <button id="submit" type="button" class="btn btn-success">Забронировать</button>
         </div>
     </form>
-    <script src="https://telegram.org/js/telegram-web-app.js">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
 
